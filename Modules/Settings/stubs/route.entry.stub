@@ -1,0 +1,2 @@
+Route::get('/{{ table }}/{id}', [\Modules\Settings\Http\Controllers\DynamicFormController::class, 'listing'])->name('{{ table }}');
+    #ROUTE_PLACE_FOR_NEW_ENRTY#
