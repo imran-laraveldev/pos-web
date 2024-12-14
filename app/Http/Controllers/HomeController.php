@@ -21,9 +21,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data['current_route'] = Request::route()->getName();
+        $data['current_route'] = $request->route()->getName();
         return view('home',$data);
     }
 }

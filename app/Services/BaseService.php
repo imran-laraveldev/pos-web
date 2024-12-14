@@ -106,7 +106,7 @@ class BaseService
             $result[] = ['node_name' => $form->node_name,
                 'total' => $total ?? rand(100,999),
                 'route_url' => route($form->schema_name,$form->id),
-                'creator' => $form->creator->name];
+                'creator' => optional($form->creator)->name];
         }
         return $result;
     }
