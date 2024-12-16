@@ -4,8 +4,32 @@
 <ul class="navbar-nav" id="navbar-nav">
     <li class="menu-title"><span data-key="t-menu-system">System Navs</span></li>
     <?php $current_route = \Request::route()->getName(); ?>
-    {!! UserMenu($current_route) !!}
+{{--    {!! UserMenu($current_route) !!}--}}
 
+    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-menu">FAST</span></li>
+    <li class="nav-item">
+        <?php
+        $aclArray = ['schools.students','schools.students.test'];
+        $acl_active = (in_array($current_route, $aclArray)) ? 'active' : '';
+        $acl_show = (in_array($current_route, $aclArray)) ? 'show' : '';
+        ?>
+        <a class="nav-link menu-link {{ $acl_active }}" href="#sidebarPages-0" data-bs-toggle="collapse" role="button"
+           aria-expanded="{{ in_array($current_route, $aclArray) ? 'true' : 'false' }}" aria-controls="sidebarPages-0">
+            <i class="ri-account-circle-line"></i> <span data-key="t-pages">Student Management</span>
+        </a>
+        <div class="collapse menu-dropdown {{ $acl_show }}" id="sidebarPages-0">
+            <ul class="nav nav-sm flex-column {{ $acl_show }}">
+                <li class="nav-item">
+                    <a href="{{ route('schools.students.listing') }}" data-key="t-users"
+                       class="nav-link {{ $current_route == 'schools.students.listing' ? 'active' : '' }}" > Students </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('schools.students.test') }}" data-key="t-users"
+                       class="nav-link {{ $current_route == 'schools.students.test' ? 'active' : '' }}" > Test Students </a>
+                </li>
+            </ul>
+        </div>
+    </li>
     <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-menu">Static Navs</span></li>
     <li class="nav-item">
         <?php

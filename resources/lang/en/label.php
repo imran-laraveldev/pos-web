@@ -20,6 +20,7 @@ return [
     'division' => 'Division',
     'district' => 'District',
     'tehsil' => 'Tehsil',
+    'schools' => 'Schools',
     'department' => 'Department',
     'sector' => 'Sector',
     'sub_sector' => 'Sub Sector',
