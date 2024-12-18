@@ -164,12 +164,12 @@
                         d.admission_number = $('#admission_number').val();
                         d.contact = $('#contact').val();
                         d.student_type = '{{ $student_type }}';
-                        // d.status=1;
+                        d.batch_id = '{{ $batch_id }}';
                     }
                 },
                 columns: [
                     { data: 'student_id', name: 'student_id' ,"visible": false},
-                    { data: 'student_name', name: 'student_name', className: "text-center","orderable": true},
+                    { data: 'student_name', name: 'student_name', className: "text-left","orderable": true},
                     { data: 'father_name', name: 'father_name' ,"orderable": true},
                     { data: 'admission_number', name: 'admission_number' ,"orderable": true},
                     { data: 'class', name: 'course_id' ,"orderable": true},

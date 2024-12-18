@@ -12,6 +12,7 @@ use Yajra\DataTables\Facades\DataTables;
 class StudentController extends Controller
 {
     protected $__studentService;
+    protected $data;
 
     public function __construct(StudentService $studentService)
     {
@@ -20,6 +21,7 @@ class StudentController extends Controller
         $this->data['routePrefix'] = 'schools.students.';
         $this->data['module'] = __('label.schools');
         $this->data['title'] = __('label.students');
+        $this->data['batch_id'] = 8;
     }
 
     /**
@@ -44,7 +46,7 @@ class StudentController extends Controller
 
     public function getDatatableList(Request $request)
     {
-        $searchFilter = [['cdel', $request->student_type]];
+        $searchFilter = [['cdel', $request->student_type],['batch_id', $request->batch_id]];
         if ($request->student_name != '') {
             $searchFilter[] = ['student_name', 'LIKE', "%" . $request->student_name . "%"];
         }
@@ -66,20 +68,18 @@ class StudentController extends Controller
         return DataTables::eloquent($results)
             ->editColumn('class', function ($query) {
                 return !empty($query->class) ? $query->class : '';
-
             })
             ->addColumn('department_name', function ($query) {
                 return optional($query->department)->name ?? '-';
-
             })
             ->addColumn('color_box', function ($query) use ($request) {
                 return "<div class='text-center' style='width:40px; height:40px; border-radius: 50%;background-color:". $query->color_code . "'> </div>";
             })
             ->addColumn('action', function ($query) use ($request) {
-                $view_url = URL::to('students/' . base64url_encode($query->student_id) . '/view');
+                $view_url = URL::to('schools/students/' . base64_encode($query->student_id) . '/view');
                 $view_button = "<a href='$view_url'>
                             <span class='edit-icon text-theme-dark'>
-                                <i class='fa fa-eye'></i>
+                                <i class='fa fa-eye'></i>View
                             </span>
                         </a>";
 
@@ -98,9 +98,9 @@ class StudentController extends Controller
                 }
 
                 return "$edit_button $delete_button $view_button";
-
             })
-            ->rawColumns(['inventory_name','color_box','department_name','vendor_name','action'])->make(true);
+            ->rawColumns(['inventory_name','color_box','department_name','vendor_name','action'])
+            ->make(true);
     }
 
     /**
@@ -143,8 +143,10 @@ class StudentController extends Controller
      */
     public function show($id)
     {
+        $id = base64_decode($id);
         $this->data['row'] = $this->__studentService->get($id);
-        $this->data['departments'] = $this->__studentService->getDepartmentAll();
+        $this->data['subjects'] = $this->__studentService->getSubjectsList();
+//dd($this->data['subjects']);
         return view('schools::students.view',$this->data);
     }
 
@@ -156,7 +158,7 @@ class StudentController extends Controller
     {
         $id = base64_decode($id);
         $this->data['row'] = $this->__studentService->get($id);
-        $this->data['departments'] = $this->__studentService->getDepartmentAll();
+//        $this->data['departments'] = $this->__studentService->getDepartmentAll();
         return view('schools::students.edit',$this->data);
     }
 

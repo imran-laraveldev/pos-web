@@ -14,7 +14,7 @@
 Route::prefix('schools')->group(function() {
     Route::get('/', 'SchoolsController@index')->name('schools.index');
     Route::prefix('students')->group(function() {
-//        Route::get('/', 'StudentController@index')->name('schools.students.index');
+        Route::get('/index', 'StudentController@index')->name('schools.students.index');
         Route::get('/', [\Modules\Schools\Http\Controllers\StudentController::class, 'index'])->name('schools.students.listing');
         Route::get('/test', [\Modules\Schools\Http\Controllers\StudentController::class, 'testStudents'])->name('schools.students.test');
         Route::post('/datatable', [\Modules\Schools\Http\Controllers\StudentController::class, 'getDatatableList'])->name('schools.students.datatable');

@@ -17,7 +17,7 @@ class StudentService extends SchoolService
 
     function get($id)
     {
-        return SchoolStudent::find($id);
+        return SchoolStudent::where('student_id', $id)->first(); //find($id);
     }
 
     function queryProduct($department_id=null)

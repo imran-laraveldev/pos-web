@@ -9,8 +9,11 @@ class SchoolCourseSubject extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
-    
+    protected $connection = 'mysql-fast';
+    protected $table = 'subjects';
+    protected $primaryKey = 'subject_id';
+    protected $guarded = ['subject_id'];
+
     protected static function newFactory()
     {
         return \Modules\Schools\Database\factories\SchoolCourseSubjectFactory::new();

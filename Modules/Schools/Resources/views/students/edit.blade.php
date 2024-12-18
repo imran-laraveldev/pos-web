@@ -4,10 +4,10 @@
 
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header">{{ __('Budget Type') }}</div>
+            <div class="card-header">{{ __('Student') }}</div>
 
             <div class="card-body">
-                <form id="complaint_form" method="post" action="{{ route('budget_types.update',$row->id) }}"
+                <form id="complaint_form" method="post" action="{{ route($routePrefix .'update', $row->student_id) }}"
                       enctype="multipart/form-data">
                     @csrf
                     @method('put')
@@ -59,7 +59,7 @@
                                 <label for="">{{ __('label.department') }}</label>
                                 <span class="req-star">*</span>
                                 <select id="department" name="department_idfk" class="form-control">
-                                    <?=selectOptions($departments, old('department_idfk', $row->department_idfk))?>
+<!--                                    --><?//=selectOptions($departments, old('department_idfk', $row->department_idfk))?>
                                 </select>
                                 {!! $errors->first('department_idfk', '<p class="text-danger">:message</p>') !!}
                             </div>
@@ -73,7 +73,7 @@
                         <div class="col-md-4 mt-2">
                             <button type="submit" class="btn btn-success">Submit</button>
                             <button type="button" class="btn btn-outline-secondary"
-                                    onclick="window.open('{{ route('budget_types.index') }}', '_self')">Cancel
+                                    onclick="window.open('{{ route($routePrefix.'index') }}', '_self')">Cancel
                             </button>
 
                         </div>

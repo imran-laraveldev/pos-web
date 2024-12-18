@@ -25,6 +25,6 @@ class SchoolStudent extends Model
 
     function getClassAttribute()
     {
-        return optional($this->course)->course_name . $this->section;
+        return optional($this->course)->course_name . ' ' .$this->section;
     }
 }
