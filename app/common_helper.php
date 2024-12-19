@@ -112,11 +112,19 @@ if (!function_exists('selectOptions')) {
         if (!empty($options)) {
             foreach ($options as $option) {
                 if ($noKeys) {
-                    $sel = ($option == $selected) ? ' selected ' : '';
+                    if (is_array($selected)) {
+                        $sel = in_array($option, $selected) ? ' selected ' : '';
+                    } else {
+                        $sel = ($option == $selected) ? ' selected ' : '';
+                    }
                     $str .= '<option value="' . $option . '" ' . $sel . '>' . ucfirst(str_replace('_', ' ', $option)) . '</option>';
                 } else {
                     $optionText = isset($option['title']) ? $option['title'] : $option['name'];
-                    $sel = ($option['id'] == $selected) ? ' selected ' : '';
+                    if (is_array($selected)) {
+                        $sel = in_array($option['id'], $selected) ? ' selected ' : '';
+                    } else {
+                        $sel = ($option['id'] == $selected) ? ' selected ' : '';
+                    }
                     $str .= '<option value="' . $option['id'] . '" ' . $sel . '>' . ucfirst(str_replace('_', ' ', $optionText)) . '</option>';
                 }
             }

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\URL;
+use Modules\Schools\Http\Requests\StudentRequest;
 use Modules\Schools\Services\StudentService;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -144,9 +145,13 @@ class StudentController extends Controller
     public function show($id)
     {
         $id = base64_decode($id);
-        $this->data['row'] = $this->__studentService->get($id);
+        $this->data['row'] = $student = $this->__studentService->get($id);
+        $this->data['genders'] = [['id' => 'M', 'name' => "Boy"], ['id' => 'F', 'name' => "Girl"]];
+        $this->data['batches'] = $this->__studentService->getBatchList();
         $this->data['subjects'] = $this->__studentService->getSubjectsList();
-//dd($this->data['subjects']);
+        $this->data['selectedSubject'] = $this->__studentService->getAssignedSubjects($student)
+            ->pluck('subject_id')->toArray();
+
         return view('schools::students.view',$this->data);
     }
 
@@ -157,22 +162,27 @@ class StudentController extends Controller
     public function edit($id)
     {
         $id = base64_decode($id);
-        $this->data['row'] = $this->__studentService->get($id);
-//        $this->data['departments'] = $this->__studentService->getDepartmentAll();
+        $this->data['row'] = $student = $this->__studentService->get($id);
+        $this->data['genders'] = [['id' => 'M', 'name' => "Boy"], ['id' => 'F', 'name' => "Girl"]];
+        $this->data['batches'] = $this->__studentService->getBatchList();
+        $this->data['subjects'] = $this->__studentService->getSubjectsList();
+        $this->data['selectedSubject'] = $this->__studentService->getAssignedSubjects($student)
+            ->pluck('subject_id')->toArray();
+
         return view('schools::students.edit',$this->data);
     }
 
     /**
      * Update the specified resource in storage.
-     * @param BudgetTypeRequest $request
+     * @param StudentRequest $request
      * @param int $id
      * @return Renderable
      */
-    public function update(BudgetTypeRequest $request,$id)
+    public function update(StudentRequest $request,$id)
     {
-        $this->data = $request->all(); #dd($this->data);
+        $this->data = $request->all();
         $this->__studentService->update($this->data,$id);
-        return redirect()->route('students.index');
+        return redirect()->route($this->data['redirect_url']);
         //
     }
 

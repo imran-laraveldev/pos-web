@@ -49,3 +49,6 @@ Route::group(['prefix'=>'acl', 'as' => 'acl.'], function() {
 });
 Route::get('/roles-list', [App\Http\Controllers\Acl\RoleController::class, 'listing'])->name('roles');
 //Route::get('/roles-list', [App\Http\Controllers\Acl\RoleController::class, 'listing'])->name('roles');
+Route::fallback(function () {
+    return redirect()->route('home');
+});

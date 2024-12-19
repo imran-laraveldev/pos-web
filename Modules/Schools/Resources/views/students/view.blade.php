@@ -33,6 +33,14 @@
                                 {!! $errors->first('father_name', '<p class="text-danger">:message</p>') !!}
                             </div>
                         </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="">{{ __('schools::label.admission_number') }}</label>
+                                <input type="text" id="class" name="class" class="form-control text-success"
+                                       value="{{ old('class', $row->admission_number) }}">
+                                {!! $errors->first('class', '<p class="text-danger">:message</p>') !!}
+                            </div>
+                        </div>
                     </div>
                     <div class="row mt-1">
                         <div class="col-md-1"></div>
@@ -52,10 +60,11 @@
                                 {!! $errors->first('class', '<p class="text-danger">:message</p>') !!}
                             </div>
                         </div>
-                        <div class="col-md-3">
+
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="">{{ __('schools::label.contact') }}</label>
-                                <input type="text" id="cell_phone_father" name="cell_phone_father" class="form-control"
+                                <input type="text" id="cell_phone_father" name="cell_phone_father" class="form-control text-danger"
                                        value="{{ old('cell_phone_father', $row->cell_phone_father) }}">
                                 {!! $errors->first('cell_phone_father', '<p class="text-danger">:message</p>') !!}
                             </div>
@@ -71,66 +80,57 @@
                                 {!! $errors->first('address_line1', '<p class="text-danger">:message</p>') !!}
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
-                                <label for="">{{ __('schools::label.admission_number') }}</label>
-                                <input type="text" id="class" name="class" class="form-control"
-                                       value="{{ old('class', $row->admission_number) }}">
-                                {!! $errors->first('class', '<p class="text-danger">:message</p>') !!}
+                                <label for="">{{ __('schools::label.batch') }}</label>
+                                <select class="form-select" id="batch_id" name="batch_id">
+                                    {{ selectOptions($batches,old('batch_id', $row->batch_id),false,false) }}
+                                </select>
+                                {!! $errors->first('batch_id', '<p class="text-danger">:message</p>') !!}
                             </div>
                         </div>
                     </div>
                     <div class="row mt-1">
                         <div class="col-md-1"></div>
-                        <div class="col-md-6">
-                            <div class="container">
-
-                                <div class="multiselect-container">
-                                    <!-- Available Subjects -->
-                                    <div class="multiselect-box">
-                                        <label for="available-subjects">Available Subjects</label>
-                                        <select id="available-subjects" multiple>
-                                            {{ selectOptions($subjects,false,false,false) }}
-                                        </select>
-                                    </div>
-
-                                    <!-- Action Buttons -->
-                                    <div class="action-buttons text-center">
-                                        <button type="button" id="move-to-selected" class="btn btn-primary">>></button>
-                                        <br><br>
-                                        <button type="button" id="move-to-available" class="btn btn-danger"><<</button>
-                                    </div>
-
-                                    <!-- Selected Subjects -->
-                                    <div class="multiselect-box">
-                                        <label for="selected-subjects">Selected Subjects</label>
-                                        <select id="selected-subjects" class="multi-select" multiple>
-                                            {{ selectOptions($subjects,[],false,false) }}
-                                        </select>
-                                    </div>
-                                </div>
+                        <div class="col-md-2">
+                            <label for="available-subjects">Available Subjects</label>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="available-subjects">Selected Subjects</label>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="available-subjects">{{ __('schools::label.gender') }}</label>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4">
+                            <div class="multiselect-box">
+                                <select class="multi-select" id="availableSubjects" name="availableSubjects[]" multiple>
+                                    {{ selectOptions($subjects,$selectedSubject,false,false) }}
+                                </select>
                             </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <select class="form-select" id="gender" name="gender">
+                                    {{ selectOptions($genders,old('gender', $row->gender),false,false) }}
+                                </select>
+                                {!! $errors->first('gender', '<p class="text-danger">:message</p>') !!}
+                            </div>
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4">
+
                         </div>
                     </div>
                     <hr style="margin-top: 10px"/>
+
                     <div class="row">
                         <div class="col-md-1"></div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="">{{ __('label.department') }}</label>
-                                <span class="req-star">*</span>
-                                <select id="department" name="department_idfk" class="form-control">
-                                    <!--                                    --><?//=selectOptions($departments, old('department_idfk', $row->department_idfk))?>
-                                </select>
-                                {!! $errors->first('department_idfk', '<p class="text-danger">:message</p>') !!}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2"></div>
                         <div class="col-md-4 mt-2">
                             <button type="button" class="btn btn-outline-secondary"
                                     onclick="window.open('{{ route($routePrefix.'index') }}', '_self')">Cancel
@@ -145,38 +145,18 @@
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('assets/select2/dist/css/select2.min.css') }}">
-    <style>
-        .multiselect-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        .multiselect-box {
-            width: 45%;
-        }
-        select {
-            height: 200px;
-            width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('Modules/Schools/js/jquery-multi-select/css/multi-select.css') }}">
 @endpush
 
 @push('scripts')
     <script src="{{ asset('assets/cattle/js/jquery.validate.min.js')}}"></script>
     <script src="{{ asset('assets/cattle/js/additional-methods.min.js')}}"></script>
     <script src="{{ asset('assets/select2/dist/js/select2.full.js') }}"></script>
+    <script src="{{ asset('Modules/Schools/js/jquery-multi-select/js/jquery.multi-select.js') }}"></script>
 
     <script>
         $(document).ready(function () {
-            // Move selected items to the "Selected Subjects" list
-            $('#move-to-selected').on('click', function () {
-                $('#available-subjects option:selected').appendTo('#selected-subjects');
-            });
-
-            // Move selected items back to the "Available Subjects" list
-            $('#move-to-available').on('click', function () {
-                $('#selected-subjects option:selected').appendTo('#available-subjects');
-            });
+            $('#availableSubjects').multiSelect();
         });
     </script>
 @endpush

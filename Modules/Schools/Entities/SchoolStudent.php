@@ -12,6 +12,7 @@ class SchoolStudent extends Model
     protected $primaryKey = 'student_id';
     protected $guarded = ['student_id'];
     protected $connection = 'mysql-fast';
+    public $timestamps = false;
 
     protected static function newFactory()
     {
@@ -26,5 +27,16 @@ class SchoolStudent extends Model
     function getClassAttribute()
     {
         return optional($this->course)->course_name . ' ' .$this->section;
+    }
+
+    function subjects($batch=false)
+    {
+        $month = date('m');
+        $query = $this->hasManyThrough(SchoolSubject::class, StudentSubjectMonthly::class, 'student_id',
+            'subject_id','student_id','subject_id')->where('month', $month);
+        if ($batch) {
+            $query->where('batch_id', $batch);
+        }
+        return $query;
     }
 }

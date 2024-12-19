@@ -9,4 +9,6 @@ return [
     'address' => 'Address',
     'admission_number' => 'Admission #',
     'subjects' => 'Subjects',
+    'batch' => 'Batch',
+    'gender' => 'Gender',
     ];
