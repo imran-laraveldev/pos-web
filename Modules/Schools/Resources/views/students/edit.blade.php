@@ -47,7 +47,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="">{{ __('schools::label.date_of_birth') }}</label>
-                                <input type="text" id="date_of_birth" name="date_of_birth" class="form-control"
+                                <input type="date" id="date_of_birth" name="date_of_birth" class="form-control"
                                        value="{{ old('date_of_birth', $row->date_of_birth) }}">
                                 {!! $errors->first('date_of_birth', '<p class="text-danger">:message</p>') !!}
                             </div>

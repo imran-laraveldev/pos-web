@@ -21,7 +21,7 @@ class StudentRequest extends FormRequest
             case 'POST': {
                 return [
                     'student_name' => ['required'],
-                    'father_name' => ['father_name'],
+                    'father_name' => ['required'],
                     'cell_phone_father' => ['required'],
                     'course_id' => ['required'],
                     'section' => ['required'],

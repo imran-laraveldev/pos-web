@@ -135,6 +135,7 @@
 @push('style')
     <link rel="stylesheet" href="{{ asset('assets-cattle/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets-cattle/datepicker/datepicker3.css') }}">
+    <link rel="stylesheet" href="{{ asset('Modules/Schools/js/jquery-multi-select/css/multi-select.css') }}">
 @endpush
 
 @push('scripts')
@@ -142,6 +143,7 @@
     <script src="{{ asset('assets-cattle/cattle/js/additional-methods.min.js')}}"></script>
     <script src="{{ asset('assets-cattle/select2/dist/js/select2.full.js') }}"></script>
     <script src="{{ asset('assets-cattle/datepicker/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('Modules/Schools/js/jquery-multi-select/js/jquery.multi-select.js') }}"></script>
     <script>
         $(document).ready(function () {
 
@@ -198,10 +200,10 @@
         }
 
         $('.create-product').on('click', function () {
-            console.log('dd click..');
-            $('.modal-title').html('New Product: Loading...');
+            // console.log('dd click..');
+            $('.modal-title').html('New Student: Loading...');
 
-            var modal_title = '{{ __('label.product') }}';
+            var modal_title = '{{ __('schools::label.student') }}';
             $.ajax({
                 url: $(this).data('url'),
                 type: 'post',
@@ -211,7 +213,7 @@
                     $('#actionsModal .model-content-area').html(response);
                     $('.modal-title').html(modal_title);
                     $('#btnModalSave').data('type', 2);
-
+                    $('#availableSubjects').multiSelect();
                 }
             });
         });
@@ -229,16 +231,16 @@
             search_data();
         });
         $("#btnModalSave").click(function () {
-            if ($("#complaint_form").valid()) {
+            if ($("#student_form").valid()) {
                 $.ajax({
-                    url: '{{ route('products.validate') }}',
+                    url: '{{ route($routePrefix.'validate') }}',
                     type: 'post',
                     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                     data: {
                         "financial_year_idfk": $('#financial_year_id').val(),
                     },
                     success: function (response) {
-                        $('#complaint_form').submit();
+                        $('#student_form').submit();
                     },
                     error: function (xhr, status, error) {
                         //console.log(xhr.responseJSON.message,xhr);

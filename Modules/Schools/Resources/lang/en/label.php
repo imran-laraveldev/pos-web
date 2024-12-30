@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'student' => 'Student',
     'student_name' => 'Student Name',
     'father_name' => 'Father Name',
     'date_of_birth' => 'Date of birth',

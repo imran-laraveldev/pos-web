@@ -45,10 +45,12 @@ class StudentService extends SchoolService
     function create($params)
     {
         return SchoolStudent::create([
-            'title' => $params['name'],
-            'sector' => $params['sector'],
-            'sub_sector' => $params['sub_sector'],
-            'department_idfk' => $params['department_idfk'],
+            'student_name' => $params['student_name'],
+            'father_name' => $params['father_name'],
+            'date_of_birth' => $params['date_of_birth'],
+            'cell_phone_father' => $params['cell_phone_father'],
+            'address_line1' => $params['address_line1'],
+            'gender' => $params['gender'],
         ]);
     }
 

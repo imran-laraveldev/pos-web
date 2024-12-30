@@ -110,14 +110,24 @@ class StudentController extends Controller
      */
     public function create()
     {
-        $this->data['departments'] = $this->__studentService->getDepartmentAll();
+        $this->data['admission_number'] = $this->__studentService->getAdmissionNumber()->toArray();
+        $this->data['default_gender'] = 'M';
+        $this->data['genders'] = [['id' => 'M', 'name' => "Boy"], ['id' => 'F', 'name' => "Girl"]];
+        $this->data['batches'] = $this->__studentService->getBatchList();
+        $this->data['courses'] = $this->__studentService->getCourseList();
+        $this->data['subjects'] = $this->__studentService->getSubjectsList();
+        $this->data['selectedSubject'] = [];
         return view('schools::students.create_modal',$this->data);
     }
 
     public function validate(Request $request)
     {
         $paramsCheckArray = [
-            'financial_year_idfk' => $request->post('financial_year_idfk'),
+            'student_name' => $request->post('student_name'),
+            'father_name' => $request->post('father_name'),
+            'course_id' => $request->post('course_id'),
+            'section' => $request->post('section'),
+            'batch_id' => $request->post('batch_id'),
         ];
         if (!$this->__studentService->recordExists($paramsCheckArray)) {
             return response()->json(['success' => true, 'message' => 'This request data is valid'], 200);
@@ -130,11 +140,11 @@ class StudentController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(BudgetTypeRequest $request)
+    public function store(StudentRequest $request)
     {
         $this->data = $request->all();
         $this->__studentService->create($this->data);
-        return redirect()->route('students.index');
+        return redirect()->route('schools.students.index');
     }
 
     /**
