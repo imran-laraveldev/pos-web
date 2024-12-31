@@ -51,6 +51,11 @@ class StudentService extends SchoolService
             'cell_phone_father' => $params['cell_phone_father'],
             'address_line1' => $params['address_line1'],
             'gender' => $params['gender'],
+            'course_id' => $params['course_id'],
+            'section' => $params['section'],
+            'batch_id' => $params['batch_id'],
+            'admission_number' => $params['admission_number'],
+            'admission_date' => $params['admission_date'] ?? date('Y-m-d')
         ]);
     }
 

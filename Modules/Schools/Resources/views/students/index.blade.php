@@ -6,8 +6,8 @@
             <div class="card-header">
                 <span class="pull-left">Filters</span>
                 <span style="float: right;">
-            <!-- Optional Actions -->
-        </span>
+                    <button type="button" class="btn btn-primary btn-sm" id="btn-filter">Filter</button>
+                </span>
             </div>
 
             <div class="card-body">
@@ -31,9 +31,19 @@
                             <input type="text" class="form-control" id="contact" name="contact" \
                                    value="{{ old('contact') }}">
                         </div>
-                        <div class="col-md-2 mt-4">
-                            <button type="button" class="btn btn-primary btn-sm" id="btn-filter">Filter</button>
+                        <div class="col-md-2">
+                            <label for="contact">Class</label>
+                            <select class="form-select" id="course" name="course" >
+                                {{ selectOptions($courses,old('course', 1),false,false) }}
+                            </select>
                         </div>
+                        <div class="col-md-2">
+                            <label for="contact">Division</label>
+                            <select class="form-select" id="division" name="division" >
+                                {{ selectOptions($divisions,old('division', 1),false,false) }}
+                            </select>
+                        </div>
+
                     </div>
                 </form>
             </div>
@@ -167,6 +177,8 @@
                         d.contact = $('#contact').val();
                         d.student_type = '{{ $student_type }}';
                         d.batch_id = '{{ $batch_id }}';
+                        d.course_id = $('#course').val();
+                        d.division_id = $('#division').val();
                     }
                 },
                 columns: [
@@ -240,7 +252,21 @@
                         "financial_year_idfk": $('#financial_year_id').val(),
                     },
                     success: function (response) {
-                        $('#student_form').submit();
+                        // $('#student_form').submit();
+                        $.ajax({
+                            url: '{{ route($routePrefix.'store') }}',
+                            type: 'post',
+                            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                            data: $("#student_form").serialize(),
+                            success: function (response) {
+                                $("#actionsModal .model-error-message").removeClass('text-danger').addClass('text-success');
+                                $("#actionsModal .model-error-message").text('Successfully Added!').show();
+                            },
+                            error: function (xhr, status, error) {
+                                //console.log(xhr.responseJSON.message,xhr);
+                                $("#actionsModal .model-error-message").text(xhr.responseJSON.message).show();
+                            }
+                        });
                     },
                     error: function (xhr, status, error) {
                         //console.log(xhr.responseJSON.message,xhr);

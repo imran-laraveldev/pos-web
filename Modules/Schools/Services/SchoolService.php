@@ -18,7 +18,7 @@ class SchoolService
     }
 
     function getCourseList(){
-        return SchoolCourse::select('course_id as id', 'course_name as name')->get();
+        return SchoolCourse::select('course_id as id', 'course_name as name')->where('is_active','Y')->get();
     }
 
     function getSubjectsList(){

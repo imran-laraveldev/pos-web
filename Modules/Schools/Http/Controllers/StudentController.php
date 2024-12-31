@@ -22,6 +22,8 @@ class StudentController extends Controller
         $this->data['routePrefix'] = 'schools.students.';
         $this->data['module'] = __('label.schools');
         $this->data['title'] = __('label.students');
+        $this->data['divisions'] = [['id' => 1, 'name' => 'Boys'],['id' => 2, 'name' => 'Girls']];
+        $this->data['courses'] = $this->__studentService->getCourseList();
         $this->data['batch_id'] = 8;
     }
 
@@ -33,7 +35,7 @@ class StudentController extends Controller
     {
         $this->data['title'] = 'Student';
         $this->data['rows'] = null; #$this->__studentService->getAll();
-        $this->data['student_type'] = 1;
+        $this->data['student_type'] = 0;
         return view('schools::students.index',$this->data);
     }
 
@@ -64,8 +66,16 @@ class StudentController extends Controller
             $searchFilter[] = ['cell_phone_father', 'LIKE', $request->contact . "%"];
         }
 
+        if ($request->course_id != '') {
+            $searchFilter[] = ['course_id', $request->course_id];
+        }
+
+        if ($request->division_id != '') {
+            $searchFilter[] = ['division_id', $request->division_id];
+        }
+
         $results = $this->__studentService->filterProducts($searchFilter);
-//        dd($results->toSql());
+//        dd($results->toSql(),$results->getBindings());
         return DataTables::eloquent($results)
             ->editColumn('class', function ($query) {
                 return !empty($query->class) ? $query->class : '';
