@@ -120,7 +120,8 @@ class StudentController extends Controller
      */
     public function create()
     {
-        $this->data['admission_number'] = $this->__studentService->getAdmissionNumber()->toArray();
+        $this->data['admission_number'] = $admissionNumber = $this->__studentService->getAdmissionNumber();
+//        dump($admissionNumber);
         $this->data['default_gender'] = 'M';
         $this->data['genders'] = [['id' => 'M', 'name' => "Boy"], ['id' => 'F', 'name' => "Girl"]];
         $this->data['batches'] = $this->__studentService->getBatchList();
@@ -169,8 +170,12 @@ class StudentController extends Controller
         $this->data['genders'] = [['id' => 'M', 'name' => "Boy"], ['id' => 'F', 'name' => "Girl"]];
         $this->data['batches'] = $this->__studentService->getBatchList();
         $this->data['subjects'] = $this->__studentService->getSubjectsList();
-        $this->data['selectedSubject'] = $this->__studentService->getAssignedSubjects($student)
-            ->pluck('subject_id')->toArray();
+        $selectedSubjects = $this->__studentService->getAssignedSubjects($student);
+        $list = [];
+        foreach($selectedSubjects as $subject) {
+            $list[] = $subject->subject->subject_name;
+        }
+        $this->data['selectedSubject'] = $list;
 
         return view('schools::students.view',$this->data);
     }
@@ -186,6 +191,7 @@ class StudentController extends Controller
         $this->data['genders'] = [['id' => 'M', 'name' => "Boy"], ['id' => 'F', 'name' => "Girl"]];
         $this->data['batches'] = $this->__studentService->getBatchList();
         $this->data['subjects'] = $this->__studentService->getSubjectsList();
+
         $this->data['selectedSubject'] = $this->__studentService->getAssignedSubjects($student)
             ->pluck('subject_id')->toArray();
 

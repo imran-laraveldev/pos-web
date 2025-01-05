@@ -53,11 +53,15 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="">{{ __('schools::label.class') }}</label>
-                                <input type="text" id="class" name="class" class="form-control"
-                                       value="{{ old('class', $row->class) }}">
-                                {!! $errors->first('class', '<p class="text-danger">:message</p>') !!}
+                            <label for="course_id" class="mb-0 mr-2">{{ __('schools::label.class') }}</label>
+                            <div class="form-group d-flex align-items-center">
+
+                                <select class="form-select mr-2 flex-grow-1" id="course_id" name="course_id">
+                                    {{ selectOptions($courses, old('course_id', 9), false, false) }}
+                                </select>
+                                <input type="text" id="section" name="section" class="form-control"
+                                       value="{{ old('section', 'A') }}" style="width: 60px;">
+                                {!! $errors->first('course_id', '<p class="text-danger w-100">:message</p>') !!}
                             </div>
                         </div>
 

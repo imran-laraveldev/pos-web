@@ -10,7 +10,7 @@
 </style>
 <form id="student_form" method="post" action="{{ route($routePrefix.'store') }}" enctype="multipart/form-data">
     @csrf
-
+    <input type="hidden" id="type" name="cdel" value="{{ $_POST['type'] ?? '1' }}">
     <div class="row ml-5">
         <div class="row mt-1">
             <div class="col-md-4">
@@ -33,11 +33,11 @@
             </div>
             <div class="col-md-3">
                 <div class="form-group">
-                    <input type="hidden" id="admission_number_F" value="{{ $admission_number[0]['num'] ?? '' }}">
-                    <input type="hidden" id="admission_number_M" value="{{ $admission_number[1]['num'] ?? '' }}">
+                    <input type="hidden" id="admission_number_F" value="{{ $admission_number['F'] ?? '' }}">
+                    <input type="hidden" id="admission_number_M" value="{{ $admission_number['M'] ?? '' }}">
                     <label for="admission_number">{{ __('schools::label.admission_number') }}</label>
                     <input type="text" id="admission_number_form" name="admission_number" class="form-control text-success"
-                           value="{{ old('admission_number', $admission_number[0]['num'] ?? '') }}">
+                           value="{{ old('admission_number', $admission_number['M'] ?? '') }}">
                     {!! $errors->first('admission_number', '<p class="text-danger">:message</p>') !!}
                 </div>
             </div>
@@ -127,6 +127,7 @@
 </form>
 <script>
     function setAdmissionNumber(val) {
+        console.log('dd-modal');
         var num = $('#admission_number_'+val).val();
         $('#admission_number_form').val(num);
     }

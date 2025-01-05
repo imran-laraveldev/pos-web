@@ -12,4 +12,5 @@ return [
     'subjects' => 'Subjects',
     'batch' => 'Batch',
     'gender' => 'Gender',
+    'marksheets' => 'Mark Sheets',
     ];

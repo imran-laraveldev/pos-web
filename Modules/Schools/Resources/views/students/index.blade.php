@@ -54,7 +54,7 @@
         <div class="card">
             <div class="card-header"><span class="pull-left">{{ __($title) }}</span>
                 <span style="float: right;">
-                <a href="#" class="btn btn-success btn-sm create-product"
+                <a href="#" class="btn btn-success btn-sm create-product disabled"
                    data-url="{{ route($routePrefix.'create_modal') }}"
                    data-bs-toggle="modal" data-bs-target="#actionsModal" >Create</a>
                 </span>
@@ -67,6 +67,9 @@
                     </div>
                 @endif
                 <div class="col-lg-12">
+                    <div id="loader" class="loader-overlay">
+                        <div class="spinner"></div>
+                    </div>
                     <table class="table align-middle p-4 mb-0 products-tbl">
                         <!-- Table head -->
                         <thead>
@@ -156,9 +159,8 @@
     <script src="{{ asset('Modules/Schools/js/jquery-multi-select/js/jquery.multi-select.js') }}"></script>
     <script>
         $(document).ready(function () {
-
             $('.products-tbl').DataTable({
-                processing: true,
+                processing: false,
                 serverSide: true,
                 searching: true,
                 async:false,
@@ -168,6 +170,14 @@
 
                 ajax: {
                     url:"{{ route($routePrefix.'datatable') }}",
+                    beforeSend: function() {
+                        // Show loader before request
+                        $('#loader').fadeIn();
+                    },
+                    complete: function() {
+                        // Hide loader after request
+                        $('#loader').fadeOut();
+                    },
                     type:'POST',
                     data: function (d) {
                         d._token = "<?php echo csrf_token(); ?>";
@@ -191,6 +201,9 @@
                     { data: 'action', name: 'action' ,"orderable": false}
                 ],
                 "order": [[ 1, "asc" ]],
+                drawCallback: function () {
+                    $(".create-product").removeClass('disabled');
+                }
             });
         });
 
@@ -220,7 +233,7 @@
                 url: $(this).data('url'),
                 type: 'post',
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                data: {"id": 1},
+                data: {"type": {{ $student_type }} },
                 success: function (response) {
                     $('#actionsModal .model-content-area').html(response);
                     $('.modal-title').html(modal_title);
@@ -228,6 +241,7 @@
                     $('#availableSubjects').multiSelect();
                 }
             });
+
         });
 
         $("#complaint_form").validate({
@@ -261,6 +275,8 @@
                             success: function (response) {
                                 $("#actionsModal .model-error-message").removeClass('text-danger').addClass('text-success');
                                 $("#actionsModal .model-error-message").text('Successfully Added!').show();
+                                $("#actionsModal").modal('hide');
+                                search_data();
                             },
                             error: function (xhr, status, error) {
                                 //console.log(xhr.responseJSON.message,xhr);
@@ -275,6 +291,14 @@
                 });
             }
         });
+
+
+
+        // function setAdmissionNumber(val) {
+        //     console.log('dd-index');
+        //     var num = $('#admission_number_'+val).val();
+        //     $('#admission_number_form').val(num);
+        // }
     </script>
 @endpush
 

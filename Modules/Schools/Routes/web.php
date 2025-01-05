@@ -13,6 +13,10 @@
 
 Route::prefix('schools')->group(function() {
     Route::get('/', 'SchoolsController@index')->name('schools.index');
+    Route::prefix('marksheets')->group(function() {
+        Route::get('/index', 'MarkSheetController@index')->name('schools.marksheets.index');
+    });
+
     Route::prefix('students')->group(function() {
         Route::get('/index', 'StudentController@index')->name('schools.students.index');
         Route::get('/', [\Modules\Schools\Http\Controllers\StudentController::class, 'index'])->name('schools.students.listing');

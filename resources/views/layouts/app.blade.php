@@ -12,7 +12,7 @@ data-layout-width="fluid" data-layout-position="fixed" data-layout-style="defaul
     <!-- Scripts -->
 
     <!-- plugin css -->
-    <script src="{{ asset('assets-cattle/assets/js/layout.js') }}"></script>
+{{--    <script src="{{ asset('assets-cattle/assets/js/layout.js') }}"></script>--}}
     <link href="{{ asset('assets-cattle/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets-cattle/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets-cattle/assets/css/app.min.css') }}" rel="stylesheet" type="text/css"/>
@@ -26,6 +26,38 @@ data-layout-width="fluid" data-layout-position="fixed" data-layout-style="defaul
             font-weight: 500;
             margin-bottom:0px !important;
         }
+        #page-content {
+            position: relative;
+        }
+
+        .loader-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            display: none;  /* Initially hidden */
+        }
+
+        .spinner {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
     </style>
 </head>
 

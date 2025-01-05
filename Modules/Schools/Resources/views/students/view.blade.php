@@ -92,10 +92,7 @@
                     </div>
                     <div class="row mt-1">
                         <div class="col-md-1"></div>
-                        <div class="col-md-2">
-                            <label for="available-subjects">Available Subjects</label>
-                        </div>
-                        <div class="col-md-2">
+                        <div class="col-md-4">
                             <label for="available-subjects">Selected Subjects</label>
                         </div>
                         <div class="col-md-2">
@@ -105,10 +102,8 @@
                     <div class="row mt-1">
                         <div class="col-md-1"></div>
                         <div class="col-md-4">
-                            <div class="multiselect-box">
-                                <select class="multi-select" id="availableSubjects" name="availableSubjects[]" multiple>
-                                    {{ selectOptions($subjects,$selectedSubject,false,false) }}
-                                </select>
+                            <div class="form-control">
+                                {!! implode(', ',$selectedSubject) !!}
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -156,7 +151,7 @@
 
     <script>
         $(document).ready(function () {
-            $('#availableSubjects').multiSelect();
+            // $('#availableSubjects').multiSelect();
         });
     </script>
 @endpush
