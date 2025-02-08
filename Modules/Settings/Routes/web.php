@@ -70,7 +70,9 @@ Route::prefix('settings')->group(function() {
     Route::get('/employee/{id}', [\Modules\Settings\Http\Controllers\DynamicFormController::class, 'listing'])->name('employee');
     Route::get('/users/{id}', [\Modules\Settings\Http\Controllers\DynamicFormController::class, 'listing'])->name('users');
     Route::get('/departments/{id}', [\Modules\Settings\Http\Controllers\DynamicFormController::class, 'listing'])->name('departments');
+    Route::get('/payment_returns/{id}', [\Modules\Settings\Http\Controllers\DynamicFormController::class, 'listing'])->name('payment_returns');
     #ROUTE_PLACE_FOR_NEW_ENRTY#
+
 
 
 
