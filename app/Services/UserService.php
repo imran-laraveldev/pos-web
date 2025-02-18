@@ -12,7 +12,7 @@ class UserService extends BaseService
 {
     public function __construct()
     {
-
+        $this->setModel(User::class);
     }
 
     public function getAll()
@@ -79,5 +79,11 @@ class UserService extends BaseService
             'district_idfk' => $params['district_idfk'],
             'tehsil_ids' => $params['tehsil_ids']
         ]);
+    }
+
+    function authenticate(&$user,$password)
+    {
+        $token = $this->getToken($user->createToken(Hash::make($user->username.$password))->plainTextToken);
+        $user['token'] = $token;
     }
 }

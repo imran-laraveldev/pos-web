@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/login', [\App\Http\Controllers\Api\UserController::class, 'login']);
+Route::get('users', [\App\Http\Controllers\Api\OrderController::class, 'getRecords']);
+Route::get('students', [\App\Http\Controllers\Api\OrderController::class, 'getStudents']);
+Route::put('students/{id}', [\App\Http\Controllers\Api\OrderController::class, 'updateStudent']);
+Route::delete('students/{id}', [\App\Http\Controllers\Api\OrderController::class, 'deleteStudent']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

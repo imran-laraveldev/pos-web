@@ -212,7 +212,7 @@
             </div>
         </div>
     </div>
-    @include('settings::dynamic_forms.common_modal');
+    @include('settings::dynamic_forms.common_modal')
 @endsection
 
 @push('style')

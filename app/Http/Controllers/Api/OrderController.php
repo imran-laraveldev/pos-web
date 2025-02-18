@@ -7,7 +7,7 @@ use App\Repositories\OrderRepository;
 use Illuminate\Http\Request;
 use Modules\Reports\Entities\Order;
 
-class OrderController extends Controller
+class OrderController extends ApiController
 {
     public function __construct(Order $model, OrderRepository $repository) {
         parent::__construct();
@@ -79,5 +79,21 @@ class OrderController extends Controller
             'is_comment_allowed' => $this->request->input('is_comment_allowed'),
             'is_flag_enabled' => $this->request->input('is_flag_enabled'),
         ];
+    }
+
+    public function getRecords(Request $request) {
+        return $this->repository->getUsers();
+    }
+
+    public function getStudents(Request $request) {
+        return $this->repository->getStudents();
+    }
+
+    public function updateStudent(Request $request,$id) {
+        return $this->repository->updateStudent($request->only(['student_name','father_name','cell_phone_father']),$id);
+    }
+
+    public function deleteStudent($id) {
+        return $this->repository->deleteStudent($id);
     }
 }

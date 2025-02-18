@@ -17,6 +17,16 @@ class BaseService
 {
     use AttachableService,AclServiceTrait;
 
+    protected $model = null;
+
+    /**
+     * @param $model
+     */
+    function setModel($model)
+    {
+        $this->model = $model;
+    }
+
     function getUserById($id)
     {
         return User::find($id);
@@ -79,6 +89,11 @@ class BaseService
     function getParentNavs()
     {
         return Navigation::select('id','name')->where('parent_id','0')->get();
+    }
+
+    protected function getToken($token) {
+        $token = explode('|', $token);
+        return $token[count($token)-1];
     }
 
     function getDesignations()
