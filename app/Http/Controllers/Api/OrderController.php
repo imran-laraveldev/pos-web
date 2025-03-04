@@ -89,6 +89,10 @@ class OrderController extends ApiController
         return $this->repository->getStudents();
     }
 
+    public function storeStudent(Request $request) {
+        return $this->repository->storeStudent($request->only(['student_name','father_name','cell_phone_father']));
+    }
+
     public function updateStudent(Request $request,$id) {
         return $this->repository->updateStudent($request->only(['student_name','father_name','cell_phone_father']),$id);
     }

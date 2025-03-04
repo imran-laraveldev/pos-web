@@ -74,5 +74,8 @@ return [
     'form_type' => 'Form Type',
     'pagination' => 'Pagination',
     'activate_workflow' => 'Workflow',
-    'soft_delete' => 'Soft Delete',
+    'branches' => 'Branches',
+    'officers' => 'Officers',
+    'visit_types' => 'Visit Types',
+    'visit_gates' => 'Visit Gates',
 ];

@@ -6,6 +6,12 @@
     <?php $current_route = \Request::route()->getName(); ?>
 {{--    {!! UserMenu($current_route) !!}--}}
 
+    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-menu">VMS</span></li>
+    <li class="nav-item">
+        <a href="{{ route('visits') }}" data-key="t-visits"
+           class="nav-link {{ $current_route == 'visits' ? 'active' : '' }}" > Visits </a>
+    </li>
+
     <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-menu">FAST</span></li>
     <li class="nav-item">
         <?php
@@ -92,7 +98,7 @@
 
     <li class="nav-item">
         <?php
-        $settingArray = ['products','dynamic_forms'];
+        $settingArray = ['branches','officers','visit_gates','visit_types','products','dynamic_forms'];
         $setting_active = (in_array($current_route, $settingArray)) ? 'active' : '';
         $setting_show = (in_array($current_route, $settingArray)) ? 'show' : '';
         ?>
@@ -102,6 +108,19 @@
         </a>
         <div class="collapse menu-dropdown {{ $setting_show }}" id="sidebarPages-3">
             <ul class="nav nav-sm flex-column {{ $setting_show }}">
+
+                <li class="nav-item">
+                    <a href="{{ route('branches',13) }}" class="nav-link {{ $current_route == 'branches' ? 'active' : '' }}" data-key="t-budget_types"> {{ __('label.branches') }} </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('officers',14) }}" class="nav-link {{ $current_route == 'officers' ? 'active' : '' }}" data-key="t-budget_types"> {{ __('label.officers') }} </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('visit_gates',15) }}" class="nav-link {{ $current_route == 'visit_gates' ? 'active' : '' }}" data-key="t-budget_types"> {{ __('label.visit_gates') }} </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('visit_types',16) }}" class="nav-link {{ $current_route == 'visit_types' ? 'active' : '' }}" data-key="t-budget_types"> {{ __('label.visit_types') }} </a>
+                </li>
                 <li class="nav-item">
                     <a href="{{ route('products') }}" class="nav-link {{ $current_route == 'products' ? 'active' : '' }}" data-key="t-budget_types"> {{ __('label.products') }} </a>
                 </li>

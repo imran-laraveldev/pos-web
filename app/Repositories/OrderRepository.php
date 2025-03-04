@@ -35,6 +35,21 @@ class OrderRepository extends BaseRepository
         return SchoolStudent::with('course')->limit(100)->get();
     }
 
+    public function storeStudent($params)
+    {
+        $studentExist = SchoolStudent::where($params)->exists(); // Fix: `exists()`
+
+        if ($studentExist) {
+            return response()->json(['message' => 'Student already exists'], 409); // Conflict response
+        } else {
+            $student = SchoolStudent::firstOrCreate($params);
+            return response()->json([
+                'message' => 'Student added successfully!',
+                'student' => $student
+            ], 201);
+        }
+    }
+
     public function updateStudent($params,$id) {
         $student = SchoolStudent::find($id);
         return $student->update($params);

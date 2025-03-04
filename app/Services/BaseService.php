@@ -10,8 +10,10 @@ use App\Models\Division;
 use App\Models\Navigation;
 use App\Models\Province;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Modules\Settings\Entities\Category;
 use Modules\Settings\Entities\DynamicForm;
+use Modules\Settings\Entities\VisitType;
 
 class BaseService
 {

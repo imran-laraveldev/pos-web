@@ -38,6 +38,19 @@ Route::prefix('settings')->group(function() {
         // Route::get('/{id}/delete', [\Modules\Settings\Http\Controllers\ProductController::class, 'destroy'])->name('products.destroy');
     });
 
+    Route::prefix('visits')->group(function () {
+        Route::get('/', [\Modules\Settings\Http\Controllers\VisitController::class, 'index'])->name('visits');
+        Route::post('/datatable', [\Modules\Settings\Http\Controllers\VisitController::class, 'getDatatableList'])->name('visits.datatable');
+        Route::post('/create', [\Modules\Settings\Http\Controllers\VisitController::class, 'create'])->name('visits.create_modal');
+        Route::post('/validate', [\Modules\Settings\Http\Controllers\VisitController::class, 'validate'])->name('visits.validate');
+        Route::get('/create', [\Modules\Settings\Http\Controllers\VisitController::class, 'create'])->name('visits.create');
+        Route::post('/store', [\Modules\Settings\Http\Controllers\VisitController::class, 'store'])->name('visits.store');
+        Route::get('/{id}/view', [\Modules\Settings\Http\Controllers\VisitController::class, 'show'])->name('visits.show');
+        Route::get('/{id}/edit', [\Modules\Settings\Http\Controllers\VisitController::class, 'edit'])->name('visits.edit');
+        Route::put('/{id}/update', [\Modules\Settings\Http\Controllers\VisitController::class, 'update'])->name('visits.update');
+        // Route::get('/{id}/delete', [\Modules\Settings\Http\Controllers\VisitController::class, 'destroy'])->name('visits.destroy');
+    });
+
     Route::prefix('dynamic-forms')->group(function () {
         Route::get('/', [\Modules\Settings\Http\Controllers\DynamicFormController::class, 'index'])->name('dynamic_forms');
         Route::post('/datatable', [\Modules\Settings\Http\Controllers\DynamicFormController::class, 'getDatatableList'])->name('dynamic_forms.datatable');
@@ -72,7 +85,15 @@ Route::prefix('settings')->group(function() {
     Route::get('/departments/{id}', [\Modules\Settings\Http\Controllers\DynamicFormController::class, 'listing'])->name('departments');
     Route::get('/payment_returns/{id}', [\Modules\Settings\Http\Controllers\DynamicFormController::class, 'listing'])->name('payment_returns');
     Route::get('/payments/{id}', [\Modules\Settings\Http\Controllers\DynamicFormController::class, 'listing'])->name('payments');
+    Route::get('/branches/{id?}', [\Modules\Settings\Http\Controllers\DynamicFormController::class, 'listing'])->name('branches');
+    Route::get('/officers/{id?}', [\Modules\Settings\Http\Controllers\DynamicFormController::class, 'listing'])->name('officers');
+    Route::get('/visit_gates/{id?}', [\Modules\Settings\Http\Controllers\DynamicFormController::class, 'listing'])->name('visit_gates');
+    Route::get('/visit_types/{id?}', [\Modules\Settings\Http\Controllers\DynamicFormController::class, 'listing'])->name('visit_types');
     #ROUTE_PLACE_FOR_NEW_ENRTY#
+
+
+
+
 
 
 

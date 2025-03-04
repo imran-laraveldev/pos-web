@@ -897,9 +897,9 @@ data-layout-width="fluid" data-layout-position="fixed" data-layout-style="defaul
 <script src="{{ asset('assets-cattle/assets/libs/simplebar/simplebar.min.js') }}"></script>
 <script src="{{ asset('assets-cattle/assets/libs/node-waves/waves.min.js') }}"></script>
 <script src="{{ asset('assets-cattle/assets/libs/feather-icons/feather.min.js') }}"></script>
-<!-- <script src="{{ asset('assets-cattle/assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script> -->
+{{--<script src="{{ asset('assets-cattle/assets/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>--}}
 {{--<script src="{{ asset('assets/js/jsvectormap.min.js') }}"></script>--}}
-<script src="{{ asset('assets-cattle/assets/js/plugins.js') }}"></script>
+{{--<script src="{{ asset('assets-cattle/assets/js/plugins.js') }}"></script>--}}
 
 <script type="text/javascript" src="{{ asset('assets-cattle/datatable/js/addons/datatables.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('assets-cattle/js/dataTables.buttons.min.js')}}"></script>
@@ -923,6 +923,6 @@ data-layout-width="fluid" data-layout-position="fixed" data-layout-style="defaul
     }
 </script>
 <!-- App js -->
-<script src="{{ asset('assets-cattle/assets/js/app.js') }}"></script>
+{{--<script src="{{ asset('assets-cattle/assets/js/app.js') }}"></script>--}}
 </body>
 </html>

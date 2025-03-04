@@ -5,33 +5,37 @@ namespace Modules\Settings\Services;
 
 
 use App\Services\BaseService;
-use Illuminate\Support\Facades\Auth;
-use Modules\Settings\Entities\Product;
+use Modules\Settings\Entities\Visit;
 use Modules\Settings\Entities\VisitType;
 
-class ProductService extends BaseService
+class VisitService extends BaseService
 {
     public function __construct(){}
 
     public function getAll()
     {
-        return Product::with('department')->get();
+        return Visit::with('department')->get();
     }
 
     function get($id)
     {
-        return Product::find($id);
+        return Visit::find($id);
+    }
+
+    function getAllVisitType()
+    {
+        return VisitType::where('branch_idfk', '1')->get();
     }
 
     function queryProduct($department_id=null)
     {
-        $query = Product::query();
+        $query = Visit::query();
         return $query->where('department_idfk', $department_id);
     }
 
     function filterProducts($where=[],$statusOnly=false)
     {
-        $query = Product::with('department');
+        $query = Visit::with('department');
         if ($statusOnly) {
             $query->where($where);
         } else {
@@ -42,12 +46,12 @@ class ProductService extends BaseService
 
     function recordExists($paramsArray)
     {
-        return Product::where($paramsArray)->exists();
+        return Visit::where($paramsArray)->exists();
     }
 
     function create($params)
     {
-        return Product::create([
+        return Visit::create([
             'title' => $params['name'],
             'sector' => $params['sector'],
             'sub_sector' => $params['sub_sector'],
