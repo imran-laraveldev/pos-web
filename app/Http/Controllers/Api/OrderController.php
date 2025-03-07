@@ -80,6 +80,9 @@ class OrderController extends ApiController
             'is_flag_enabled' => $this->request->input('is_flag_enabled'),
         ];
     }
+    public function getCourses(Request $request) {
+        return $this->repository->getCourses();
+    }
 
     public function getRecords(Request $request) {
         return $this->repository->getUsers();
@@ -87,6 +90,10 @@ class OrderController extends ApiController
 
     public function getStudents(Request $request) {
         return $this->repository->getStudents();
+    }
+
+    public function storeStudent(Request $request) {
+        return $this->repository->createStudent($request->only(['student_name','father_name','cell_phone_father','course']));
     }
 
     public function updateStudent(Request $request,$id) {

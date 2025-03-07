@@ -3,7 +3,9 @@
 namespace App\Repositories;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Modules\Reports\Entities\Order;
+use Modules\Schools\Entities\SchoolCourse;
 use Modules\Schools\Entities\SchoolStudent;
 
 class OrderRepository extends BaseRepository
@@ -25,6 +27,11 @@ class OrderRepository extends BaseRepository
             ->get();
     }
 
+    function getCourses()
+    {
+        return SchoolCourse::all();
+    }
+
     function getUsers()
     {
         return User::all();
@@ -33,6 +40,13 @@ class OrderRepository extends BaseRepository
     function getStudents()
     {
         return SchoolStudent::with('course')->limit(100)->get();
+    }
+
+    public function createStudent($params) {
+        $params['batch_id'] = Auth::user()->fund_center_idfk;
+        $params['course_id'] = $params['course'];
+        unset($params['course']);
+        return SchoolStudent::create($params);
     }
 
     public function updateStudent($params,$id) {

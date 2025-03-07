@@ -15,10 +15,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login', [\App\Http\Controllers\Api\UserController::class, 'login']);
-Route::get('users', [\App\Http\Controllers\Api\OrderController::class, 'getRecords']);
-Route::get('students', [\App\Http\Controllers\Api\OrderController::class, 'getStudents']);
-Route::put('students/{id}', [\App\Http\Controllers\Api\OrderController::class, 'updateStudent']);
-Route::delete('students/{id}', [\App\Http\Controllers\Api\OrderController::class, 'deleteStudent']);
+Route::get('courses', [\App\Http\Controllers\Api\OrderController::class, 'getCourses']);
+
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::get('users', [\App\Http\Controllers\Api\OrderController::class, 'getRecords']);
+    Route::get('students', [\App\Http\Controllers\Api\OrderController::class, 'getStudents']);
+    Route::post('students', [\App\Http\Controllers\Api\OrderController::class, 'storeStudent']);
+    Route::put('students/{id}', [\App\Http\Controllers\Api\OrderController::class, 'updateStudent']);
+    Route::delete('students/{id}', [\App\Http\Controllers\Api\OrderController::class, 'deleteStudent']);
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
