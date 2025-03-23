@@ -4,7 +4,9 @@
 namespace Modules\Schools\Services;
 
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Modules\Schools\Entities\SchoolCourse;
 use Modules\Schools\Entities\SchoolStudent;
 use Modules\Schools\Entities\SchoolSubject;
 use Modules\Schools\Entities\StudentPayment;
@@ -148,5 +150,37 @@ class StudentService extends SchoolService
         StudentPayment::insert($student_payments);
 
         return $model;
+    }
+
+    function getCourses()
+    {
+        return SchoolCourse::all();
+    }
+
+    function getUsers()
+    {
+        return User::all();
+    }
+
+    function getStudents()
+    {
+        return SchoolStudent::with('course')->limit(100)->get();
+    }
+
+    public function createStudent($params) {
+        $params['batch_id'] = Auth::user()->fund_center_idfk;
+        $params['course_id'] = $params['course'];
+        unset($params['course']);
+        return SchoolStudent::create($params);
+    }
+
+    public function updateStudent($params,$id) {
+        $student = SchoolStudent::find($id);
+        return $student->update($params);
+    }
+
+    public function deleteStudent($id) {
+        $student = SchoolStudent::find($id);
+        return $student->delete();
     }
 }

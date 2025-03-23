@@ -16,3 +16,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/schools', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'schools', 'as' => 'schools.'], function () {
+    Route::get('users', [\Modules\Schools\Http\Controllers\StudentController::class, 'getRecords']);
+    Route::get('students', [\Modules\Schools\Http\Controllers\StudentController::class, 'getStudents']);
+    Route::post('students', [\Modules\Schools\Http\Controllers\StudentController::class, 'storeStudent']);
+    Route::put('students/{id}', [\Modules\Schools\Http\Controllers\StudentController::class, 'updateStudent']);
+    Route::delete('students/{id}', [\Modules\Schools\Http\Controllers\StudentController::class, 'deleteStudent']);
+});

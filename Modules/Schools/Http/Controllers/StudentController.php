@@ -229,4 +229,37 @@ class StudentController extends Controller
     {
         return view('schools::index');
     }
+
+    public function getRecords(Request $request) {
+        return $this->__studentService->getUsers();
+    }
+
+    public function getStudents(Request $request) {
+        return $this->__studentService->getStudents();
+    }
+
+    public function storeStudent(Request $request) {
+        try {
+            $student = $this->__studentService->createStudent($request->only(['student_name', 'father_name', 'cell_phone_father', 'course']));
+        } catch (\Exception $exception) {
+            return json_encode([
+                'error' => true,
+                'message' => $exception->getMessage(),
+                'data' => null
+            ]);
+        }
+        return json_encode([
+            'error' => false,
+            'message' => 'Successfully Created',
+            'data' => $student
+        ]);
+    }
+
+    public function updateStudent(Request $request,$id) {
+        return $this->__studentService->updateStudent($request->only(['student_name','father_name','cell_phone_father']),$id);
+    }
+
+    public function deleteStudent($id) {
+        return $this->__studentService->deleteStudent($id);
+    }
 }
