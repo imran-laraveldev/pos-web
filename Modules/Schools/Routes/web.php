@@ -28,6 +28,7 @@ Route::prefix('schools')->group(function() {
         Route::post('/store', [\Modules\Schools\Http\Controllers\StudentController::class, 'store'])->name('schools.students.store');
         Route::get('/{id}/view', [\Modules\Schools\Http\Controllers\StudentController::class, 'show'])->name('schools.students.show');
         Route::get('/{id}/edit', [\Modules\Schools\Http\Controllers\StudentController::class, 'edit'])->name('schools.students.edit');
+        Route::post('/{id}/edit', [\Modules\Schools\Http\Controllers\StudentController::class, 'editModal'])->name('schools.students.edit_modal');
         Route::put('/{id}/update', [\Modules\Schools\Http\Controllers\StudentController::class, 'update'])->name('schools.students.update');
     });
 });

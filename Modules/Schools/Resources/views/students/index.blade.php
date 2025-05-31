@@ -244,6 +244,26 @@
 
         });
 
+        $('.edit-modal').on('click', function () {
+            // console.log('dd click..');
+            $('.modal-title').html('Edit Student: Loading...');
+
+            var modal_title = '{{ __('schools::label.student') }}';
+            $.ajax({
+                url: $(this).data('url'),
+                type: 'post',
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data: { "type": {{ $student_type }} },
+                success: function (response) {
+                    $('#actionsModal .model-content-area').html(response);
+                    $('.modal-title').html(modal_title);
+                    $('#btnModalSave').data('type', 3);
+                    $('#availableSubjects').multiSelect();
+                }
+            });
+
+        });
+
         $("#complaint_form").validate({
             rules: {
                 student_name: 'required',

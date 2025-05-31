@@ -72,6 +72,10 @@ Route::prefix('settings')->group(function() {
     Route::get('/departments/{id}', [\Modules\Settings\Http\Controllers\DynamicFormController::class, 'listing'])->name('departments');
     Route::get('/payment_returns/{id}', [\Modules\Settings\Http\Controllers\DynamicFormController::class, 'listing'])->name('payment_returns');
     Route::get('/payments/{id}', [\Modules\Settings\Http\Controllers\DynamicFormController::class, 'listing'])->name('payments');
+    Route::get('/branches/{id}', [\Modules\Settings\Http\Controllers\DynamicFormController::class, 'listing'])->name('branches');
+    Route::get('/officers/{id}', [\Modules\Settings\Http\Controllers\DynamicFormController::class, 'listing'])->name('officers');
+    Route::get('/visit_gates/{id}', [\Modules\Settings\Http\Controllers\DynamicFormController::class, 'listing'])->name('visit_gates');
+    Route::get('/visit_types/{id}', [\Modules\Settings\Http\Controllers\DynamicFormController::class, 'listing'])->name('visit_types');
     #ROUTE_PLACE_FOR_NEW_ENRTY#
 
 

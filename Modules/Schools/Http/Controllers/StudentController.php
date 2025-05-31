@@ -96,8 +96,10 @@ class StudentController extends Controller
 
                 $edit_button = '';
 //                if (hasPermission('edit_report')) {
-                $edit_link = route('schools.students.edit', base64_encode($query->student_id));
-                $edit_button = "<a href='$edit_link'><i class='bx bx-edit fa fa-eye'></i></a>";
+                $edit_link = route('schools.students.edit_modal', base64_encode($query->student_id));
+                $edit_button = "<a href='#' data-url='$edit_link'
+                                   data-bs-toggle=\"modal\" data-bs-target=\"#actionsModal\" >
+                                   <i class='bx bx-edit fa fa-eye edit-modal'></i></a>";
 //                }
 
                 $delete_button = '';
@@ -196,6 +198,20 @@ class StudentController extends Controller
             ->pluck('subject_id')->toArray();
 
         return view('schools::students.edit',$this->data);
+    }
+
+    public function editModal($id)
+    {
+        $id = base64_decode($id);
+        $this->data['row'] = $student = $this->__studentService->get($id);
+        $this->data['genders'] = [['id' => 'M', 'name' => "Boy"], ['id' => 'F', 'name' => "Girl"]];
+        $this->data['batches'] = $this->__studentService->getBatchList();
+        $this->data['subjects'] = $this->__studentService->getSubjectsList();
+
+        $this->data['selectedSubject'] = $this->__studentService->getAssignedSubjects($student)
+            ->pluck('subject_id')->toArray();
+
+        return view('schools::students.edit_modal',$this->data);
     }
 
     /**
