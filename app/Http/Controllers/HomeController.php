@@ -24,6 +24,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $data['current_route'] = $request->route()->getName();
+        $data['date_test'] = format_date('2025-02-21');
         return view('home',$data);
     }
 }

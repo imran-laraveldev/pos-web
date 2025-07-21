@@ -15,6 +15,8 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+
+                    {{ $date_test }}
                 </div>
             </div>
         </div>

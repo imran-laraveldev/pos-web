@@ -1,0 +1,24 @@
+{
+    "name": "imran/date-formator",
+    "description": "A simple Laravel date formatting helper",
+    "autoload": {
+        "psr-4": {
+            "Imran\\DateFormator\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/support": "^8.0|^9.0|^10.0",
+        "nesbot/carbon": "^2.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Imran\\DateFormator\\DateFormatorServiceProvider"
+            ]
+        }
+    }
+}
